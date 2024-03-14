@@ -1,6 +1,13 @@
 {
+  "x": 32,
+  "y": 32,
   "width": 1024,
   "height": 768,
   "fullscreen": "false",
-  "title": "CobaltSKY"
+  "title": "CobaltSKY",
+  "renderAPI": "opengl",
+  "opengl":  {
+    "versionMajor": 4,
+    "versionMinor": 5
+  }
 }

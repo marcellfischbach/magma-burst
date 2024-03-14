@@ -6,6 +6,12 @@ public interface IWindow {
 
     int getHeight ();
 
+    int getX();
+
+    int getY();
+
+    void setPosition (int x, int y);
+
     boolean isFullscreen ();
 
     void setTitle(String title);
@@ -13,7 +19,11 @@ public interface IWindow {
 
     void pollEvents ();
 
+    void finishFrame ();
+
     boolean isVisible ();
 
     boolean shouldClose();
+
+    IKeyboard getKeyboard();
 }

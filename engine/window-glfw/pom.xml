@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>CobaltSKY-WindowLWJGL</artifactId>
+    <artifactId>CobaltSKY-WindowGLFW</artifactId>
 
     <dependencies>
         <dependency>

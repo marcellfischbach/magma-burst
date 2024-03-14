@@ -16,7 +16,8 @@
 
     <modules>
         <module>core</module>
-        <module>window-lwjgl</module>
+        <module>graphics-opengl</module>
+        <module>window-glfw</module>
     </modules>
 
 

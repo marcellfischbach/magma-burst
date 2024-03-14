@@ -1,4 +1,4 @@
-package com.cobaltsky.engine.window.lwjgl;
+package com.cobaltsky.engine.window.glfw;
 
 import com.cobaltsky.engine.core.Engine;
 import com.cobaltsky.engine.core.module.IModule;
@@ -7,7 +7,7 @@ import com.cobaltsky.engine.core.window.IWindow;
 
 import java.util.Set;
 
-public class ModuleWindowLWJGL implements IModule {
+public class ModuleWindowGLFW implements IModule {
 
     @Override
     public String getName() {
@@ -26,14 +26,13 @@ public class ModuleWindowLWJGL implements IModule {
 
     @Override
     public void register(Engine engine) {
-        WindowLWJGL window = new WindowLWJGL();
+        WindowGLFW window = new WindowGLFW();
         ObjectRegistry.instance().register(IWindow.class, window);
     }
 
     @Override
     public void initialize(Engine engine) throws Exception {
-        WindowLWJGL window = ObjectRegistry.instance().get(IWindow.class, WindowLWJGL.class);
-        window.loadConfig ();
+        WindowGLFW window = ObjectRegistry.instance().get(IWindow.class, WindowGLFW.class);
         window.initialize();
         window.show ();
     }

@@ -24,7 +24,12 @@
 
         <dependency>
             <groupId>com.cobaltsky</groupId>
-            <artifactId>CobaltSKY-WindowLWJGL</artifactId>
+            <artifactId>CobaltSKY-WindowGLFW</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cobaltsky</groupId>
+            <artifactId>CobaltSKY-GraphicsOpenGL</artifactId>
         </dependency>
 
     </dependencies>

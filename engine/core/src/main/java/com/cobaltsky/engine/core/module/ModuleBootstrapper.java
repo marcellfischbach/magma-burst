@@ -4,9 +4,7 @@ import com.cobaltsky.engine.core.Engine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ServiceLoader;
+import java.util.*;
 
 public class ModuleBootstrapper {
 
@@ -25,11 +23,13 @@ public class ModuleBootstrapper {
             List<IModule> sortedModules = sort(rawModules);
 
             for (IModule module : sortedModules) {
+                LOGGER.info("Register: " + module.getName());
                 module.register(engine);
             }
 
 
             for (IModule module : sortedModules) {
+                LOGGER.info("Initialize: " + module.getName());
                 module.initialize(engine);
             }
         }
@@ -39,7 +39,28 @@ public class ModuleBootstrapper {
     }
 
     private static List<IModule> sort(List<IModule> modules) {
-        return modules;
+        List<IModule> pendingModules = new ArrayList<>(modules);
+        Set<Class<?>> availableClasses = new HashSet<>();
+        List<IModule> sortedModules = new ArrayList<>();
+        while (!pendingModules.isEmpty()) {
+            boolean foundOne = false;
+            for (IModule module : pendingModules) {
+                Set<Class<?>> dependingedClasses = module.dependingClasses();
+                if (dependingedClasses.isEmpty() || availableClasses.containsAll(dependingedClasses)) {
+                    availableClasses.addAll(module.definingClasses());
+                    sortedModules.add(module);
+                    pendingModules.remove(module);
+                    foundOne = true;
+                    break;
+                }
+            }
+            if (!foundOne) {
+                throw new CyclicDependenciesFoundException();
+            }
+        }
+
+        return sortedModules;
     }
+
 
 }
