@@ -5,6 +5,13 @@
     <file url="file://$PROJECT_DIR$/engine/core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/engine/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/engine/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/engine/window-lwjgl/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/engine/window-lwjgl/src/main/kotlin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/engine/window-lwjgl/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/examples/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/examples/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/examples/test/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/examples/test/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

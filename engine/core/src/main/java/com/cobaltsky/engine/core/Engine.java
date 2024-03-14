@@ -1,14 +1,28 @@
 package com.cobaltsky.engine.core;
 
 
-import com.cobaltsky.engine.core.math.Vector3f;
-
-import static com.cobaltsky.engine.core.math.VecMath.*;
+import com.cobaltsky.engine.core.module.ModuleBootstrapper;
+import com.cobaltsky.engine.core.resource.ObjectRegistry;
+import com.cobaltsky.engine.core.window.IWindow;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Engine {
 
-    public static void main(String[] args) {
-        Vector3f res = add(new Vector3f(1.0f, 0.0f, 0.0f), new Vector3f(0.0f, 1.0f, 1.0f), new Vector3f());
-        System.out.println("Res: " + res);
+    private static final Logger LOGGER = LogManager.getLogger(Engine.class);
+
+    public void initialize () {
+        ModuleBootstrapper.bootstrap(this);
+
+        LOGGER.info("initialize");
+    }
+
+    public void run () {
+
+        IWindow wnd = ObjectRegistry.instance().get(IWindow.class);
+        while (!wnd.shouldClose()) {
+            wnd.pollEvents();
+        }
+
     }
 }

@@ -6,18 +6,27 @@
 
     <parent>
         <groupId>com.cobaltsky</groupId>
-        <artifactId>CobaltSKY</artifactId>
+        <artifactId>CobaltSKY-Examples</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>CobaltSKY-Engine</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>Example-Test</artifactId>
+    <packaging>jar</packaging>
 
-    <modules>
-        <module>core</module>
-        <module>window-lwjgl</module>
-    </modules>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>com.cobaltsky</groupId>
+            <artifactId>CobaltSKY-EngineCore</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cobaltsky</groupId>
+            <artifactId>CobaltSKY-WindowLWJGL</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>

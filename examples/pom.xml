@@ -11,12 +11,11 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>CobaltSKY-Engine</artifactId>
+    <artifactId>CobaltSKY-Examples</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>core</module>
-        <module>window-lwjgl</module>
+        <module>test</module>
     </modules>
 
 
