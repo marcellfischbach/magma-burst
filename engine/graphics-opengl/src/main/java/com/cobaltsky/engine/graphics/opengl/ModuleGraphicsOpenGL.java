@@ -1,6 +1,7 @@
 package com.cobaltsky.engine.graphics.opengl;
 
 import com.cobaltsky.engine.core.Engine;
+import com.cobaltsky.engine.core.compat.CompatSet;
 import com.cobaltsky.engine.core.graphics.IGraphics;
 import com.cobaltsky.engine.core.module.IModule;
 import com.cobaltsky.engine.core.resource.ObjectRegistry;
@@ -13,12 +14,12 @@ public class ModuleGraphicsOpenGL implements IModule {
 
     @Override
     public Set<Class<?>> definingClasses() {
-        return Set.of(IGraphics.class);
+        return CompatSet.of(IGraphics.class);
     }
 
     @Override
     public Set<Class<?>> dependingClasses() {
-        return Set.of(IWindow.class);
+        return CompatSet.of(IWindow.class);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class ModuleGraphicsOpenGL implements IModule {
     }
 
     @Override
-    public void initialize(Engine engine) throws Exception {
+    public void initialize(Engine engine) {
         GraphicsGL4 graphics = ObjectRegistry.instance().get(IGraphics.class, GraphicsGL4.class);
         graphics.initialize ();
     }

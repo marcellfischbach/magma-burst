@@ -1,6 +1,7 @@
 package com.cobaltsky.engine.window.glfw;
 
 import com.cobaltsky.engine.core.Engine;
+import com.cobaltsky.engine.core.compat.CompatSet;
 import com.cobaltsky.engine.core.module.IModule;
 import com.cobaltsky.engine.core.resource.ObjectRegistry;
 import com.cobaltsky.engine.core.window.IWindow;
@@ -16,12 +17,12 @@ public class ModuleWindowGLFW implements IModule {
 
     @Override
     public Set<Class<?>> definingClasses() {
-        return Set.of(IWindow.class);
+        return CompatSet.of(IWindow.class);
     }
 
     @Override
     public Set<Class<?>> dependingClasses() {
-        return Set.of();
+        return CompatSet.of();
     }
 
     @Override
