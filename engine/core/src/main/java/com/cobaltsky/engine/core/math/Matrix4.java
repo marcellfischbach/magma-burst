@@ -46,6 +46,25 @@ public class Matrix4 {
         this.m31 = m31;
         this.m32 = m32;
         this.m33 = m33;
-
     }
+
+    public void toBuffer (float[] b) {
+        b[0] = m00;
+        b[1] = m01;
+        b[2] = m02;
+        b[3] = m03;
+        b[4] = m10;
+        b[5] = m11;
+        b[6] = m12;
+        b[7] = m13;
+        b[8] = m20;
+        b[9] = m21;
+        b[10] = m22;
+        b[11] = m23;
+        b[12] = m30;
+        b[13] = m31;
+        b[14] = m32;
+        b[15] = m33;
+    }
+
 }

@@ -35,7 +35,6 @@ public class Engine {
             if (keyboard.isPressed(EKey.KEY_ESCAPE)) {
                 break;
             }
-            LOGGER.info("Mouse: " + mouse.getDeltaX() + " : " + mouse.getDeltaY() + "    ->     " + mouse.getX() + ": " + mouse.getY());
 
         }
     }

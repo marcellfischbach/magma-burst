@@ -28,6 +28,17 @@ public class Matrix3 {
         this.m20 = m20;
         this.m21 = m21;
         this.m22 = m22;
+    }
 
+    public void toBuffer (float[] b) {
+        b[0] = m00;
+        b[1] = m01;
+        b[2] = m02;
+        b[3] = m10;
+        b[4] = m11;
+        b[5] = m12;
+        b[6] = m20;
+        b[7] = m21;
+        b[8] = m22;
     }
 }
