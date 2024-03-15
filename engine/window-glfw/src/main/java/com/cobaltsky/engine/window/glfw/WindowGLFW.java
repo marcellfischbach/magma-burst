@@ -25,6 +25,7 @@ public class WindowGLFW implements IWindow {
     private boolean fullscreen;
 
     private KeyboardGLFW keyboard = new KeyboardGLFW();
+    private MouseGLFW mouse = new MouseGLFW(this);
 
     public void initialize () throws Exception {
         glfwInit();
@@ -58,6 +59,10 @@ public class WindowGLFW implements IWindow {
         this.wnd = glfwCreateWindow(this.width, this.height, this.title, 0, 0);
 
         glfwSetKeyCallback(this.wnd, this.keyboard::onKeyboard);
+        glfwSetMouseButtonCallback(this.wnd, this.mouse::onMouseButton);
+        glfwSetCursorPosCallback(this.wnd, this.mouse::onMouseMotion);
+
+        glfwSetInputMode(this.wnd, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
         glfwSetWindowPos(this.wnd, this.x, this.y);
 
@@ -66,6 +71,10 @@ public class WindowGLFW implements IWindow {
 
     public void show () {
         glfwShowWindow(this.wnd);
+    }
+
+    public long getWnd() {
+        return wnd;
     }
 
     @Override
@@ -114,6 +123,8 @@ public class WindowGLFW implements IWindow {
     @Override
     public void pollEvents() {
         this.keyboard.swap();
+        this.mouse.prepareFrame();
+
         glfwPollEvents();
     }
 
@@ -140,5 +151,10 @@ public class WindowGLFW implements IWindow {
     @Override
     public IKeyboard getKeyboard() {
         return this.keyboard;
+    }
+
+    @Override
+    public MouseGLFW getMouse() {
+        return mouse;
     }
 }

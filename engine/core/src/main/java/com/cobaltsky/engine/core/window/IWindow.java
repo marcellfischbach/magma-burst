@@ -26,4 +26,6 @@ public interface IWindow {
     boolean shouldClose();
 
     IKeyboard getKeyboard();
+
+    IMouse getMouse();
 }

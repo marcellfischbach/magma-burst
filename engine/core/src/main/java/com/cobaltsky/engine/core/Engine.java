@@ -5,9 +5,7 @@ import com.cobaltsky.engine.core.graphics.IGraphics;
 import com.cobaltsky.engine.core.math.Color4f;
 import com.cobaltsky.engine.core.module.ModuleBootstrapper;
 import com.cobaltsky.engine.core.resource.ObjectRegistry;
-import com.cobaltsky.engine.core.window.EKey;
-import com.cobaltsky.engine.core.window.IKeyboard;
-import com.cobaltsky.engine.core.window.IWindow;
+import com.cobaltsky.engine.core.window.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,6 +24,8 @@ public class Engine {
         IWindow wnd = ObjectRegistry.instance().get(IWindow.class);
         IGraphics graphics = ObjectRegistry.instance().get(IGraphics.class);
         IKeyboard keyboard = wnd.getKeyboard();
+        IMouse mouse = wnd.getMouse();
+        mouse.setMode(EMouseMode.CENTERED);
 
         while (!wnd.shouldClose()) {
             wnd.pollEvents();
@@ -35,6 +35,8 @@ public class Engine {
             if (keyboard.isPressed(EKey.KEY_ESCAPE)) {
                 break;
             }
+            LOGGER.info("Mouse: " + mouse.getDeltaX() + " : " + mouse.getDeltaY() + "    ->     " + mouse.getX() + ": " + mouse.getY());
+
         }
     }
 
