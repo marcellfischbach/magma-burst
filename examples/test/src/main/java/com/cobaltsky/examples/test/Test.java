@@ -1,7 +1,13 @@
 package com.cobaltsky.examples.test;
 
 import com.cobaltsky.engine.core.Engine;
+import com.cobaltsky.engine.core.graphics.shading.IShader;
+import com.cobaltsky.engine.core.resource.AssetManager;
+import com.cobaltsky.engine.core.resource.Locator;
 import com.cobaltsky.engine.graphics.opengl.gl4.shading.*;
+
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 
 public class Test {
 
@@ -27,6 +33,10 @@ public class Test {
 
 
     private static void setupScene (Engine engine) {
+        IShader shader = AssetManager.instance().load(IShader.class, new Locator("/shaders/test.shader"));
+
+
+
         try {
             ShaderGL4 vert = new ShaderGL4(EShaderType.VERTEX);
             vert.compile(vs);
@@ -46,8 +56,8 @@ public class Test {
         catch (ShaderLinkException le) {
             System.out.println(le.getLog());
         }
-
     }
+
 
     public static void main(String[] args) {
 

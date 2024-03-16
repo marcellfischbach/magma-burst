@@ -3,6 +3,9 @@ package com.cobaltsky.engine.graphics.opengl.gl4.shading;
 import com.cobaltsky.engine.core.graphics.shading.IShaderAttribute;
 import com.cobaltsky.engine.core.math.*;
 
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+
 import static org.lwjgl.opengl.GL40.*;
 
 public class ShaderAttributeGL4 implements IShaderAttribute {
@@ -20,6 +23,11 @@ public class ShaderAttributeGL4 implements IShaderAttribute {
         this.locationName = locationName;
         this.index = 0;
         this.offset = base;
+    }
+
+    @Override
+    public String toString() {
+        return  locationName + "[" + base + "]";
     }
 
     @Override
@@ -116,6 +124,11 @@ public class ShaderAttributeGL4 implements IShaderAttribute {
     private static float[] BUFFER3 = new float[9];
     private static float[] BUFFER4 = new float[16];
 
+    private static FloatBuffer NIO_BUFFER = ByteBuffer.allocateDirect(256 * 16 * Float.BYTES).asFloatBuffer();
+
+    public static void main(String[] args) {
+        System.out.println();
+    }
 
     @Override
     public void bind(Matrix3 mat) {
@@ -125,7 +138,13 @@ public class ShaderAttributeGL4 implements IShaderAttribute {
 
     @Override
     public void bind(Matrix3[] mat) {
-        throw new UnsupportedOperationException();
+        NIO_BUFFER.clear();
+        for (Matrix3 matrix3 : mat) {
+            matrix3.toBuffer(BUFFER3);
+            NIO_BUFFER.put(BUFFER3);
+        }
+        NIO_BUFFER.limit(NIO_BUFFER.position());
+        glUniformMatrix3fv(this.offset, false, NIO_BUFFER);
     }
 
 
@@ -137,6 +156,12 @@ public class ShaderAttributeGL4 implements IShaderAttribute {
 
     @Override
     public void bind(Matrix4[] mat) {
-        throw new UnsupportedOperationException();
+        NIO_BUFFER.clear();
+        for (Matrix4 matrix4 : mat) {
+            matrix4.toBuffer(BUFFER4);
+            NIO_BUFFER.put(BUFFER4);
+        }
+        NIO_BUFFER.limit(NIO_BUFFER.position());
+        glUniformMatrix4fv(this.offset, false, NIO_BUFFER);
     }
 }

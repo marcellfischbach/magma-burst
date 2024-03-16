@@ -16,7 +16,7 @@ public class Engine {
     public void initialize () {
         ModuleBootstrapper.bootstrap(this);
 
-        LOGGER.info("initialize");
+        LOGGER.info("initialized");
     }
 
     public void run () {
@@ -25,7 +25,6 @@ public class Engine {
         IGraphics graphics = ObjectRegistry.instance().get(IGraphics.class);
         IKeyboard keyboard = wnd.getKeyboard();
         IMouse mouse = wnd.getMouse();
-        mouse.setMode(EMouseMode.CENTERED);
 
         while (!wnd.shouldClose()) {
             wnd.pollEvents();

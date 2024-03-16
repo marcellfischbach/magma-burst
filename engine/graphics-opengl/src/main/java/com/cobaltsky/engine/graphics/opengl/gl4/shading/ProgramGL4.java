@@ -91,13 +91,13 @@ public class ProgramGL4 extends NamedGL4 implements IShader {
 
         String locationName = locationName(attributeName);
         int loc = glGetUniformLocation(this.name, locationName);
-        ShaderAttributeGL4 attribute = null;
         if (loc != -1) {
-            attribute = new ShaderAttributeGL4(loc, attributeName);
+            ShaderAttributeGL4 attribute = new ShaderAttributeGL4(loc, attributeName);
+            this.attributes.add(attribute);
+            return this.attributes.size() - 1;
         }
-        this.attributes.add(attribute);
 
-        return this.attributes.size() - 1;
+        return -1;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.cobaltsky.engine.core.math;
 
+import java.nio.FloatBuffer;
+
 public class Matrix3 {
 
     public float m00 = 1.0f;
@@ -40,5 +42,17 @@ public class Matrix3 {
         b[6] = m20;
         b[7] = m21;
         b[8] = m22;
+    }
+
+    public void toBuffer (FloatBuffer buffer) {
+        buffer.put(m00);
+        buffer.put(m01);
+        buffer.put(m02);
+        buffer.put(m10);
+        buffer.put(m11);
+        buffer.put(m12);
+        buffer.put(m20);
+        buffer.put(m21);
+        buffer.put(m22);
     }
 }
