@@ -147,6 +147,10 @@ public class ShaderAttributeGL4 implements IShaderAttribute {
         glUniformMatrix3fv(this.offset, false, NIO_BUFFER);
     }
 
+    @Override
+    public void bindMatrix3(float[] buffer) {
+        glUniformMatrix3fv(this.offset, false, buffer);
+    }
 
     @Override
     public void bind(Matrix4 mat) {
@@ -164,4 +168,11 @@ public class ShaderAttributeGL4 implements IShaderAttribute {
         NIO_BUFFER.limit(NIO_BUFFER.position());
         glUniformMatrix4fv(this.offset, false, NIO_BUFFER);
     }
+
+
+    @Override
+    public void bindMatrix4(float[] buffer) {
+        glUniformMatrix4fv(this.offset, false, buffer);
+    }
+
 }

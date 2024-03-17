@@ -30,8 +30,10 @@ public interface IShaderAttribute {
 
     void bind(Matrix3 mat);
     void bind(Matrix3[] mat);
+    void bindMatrix3(float[] buffer);
 
     void bind(Matrix4 mat);
     void bind(Matrix4[] mat);
+    void bindMatrix4(float[] buffer);
 
 }

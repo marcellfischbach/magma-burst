@@ -18,6 +18,14 @@ public class ProgramGL4 extends NamedGL4 implements IShader {
         this.name = glCreateProgram();
     }
 
+    @Override
+    protected void release() {
+        if (this.name != 0) {
+            glDeleteProgram(this.name);
+            this.name = 0;
+        }
+    }
+
     public void attach(ShaderGL4 shader) {
         glAttachShader(this.name, shader.getName());
     }

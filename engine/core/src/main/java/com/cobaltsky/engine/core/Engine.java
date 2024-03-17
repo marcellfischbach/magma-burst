@@ -19,7 +19,16 @@ public class Engine {
         LOGGER.info("initialized");
     }
 
-    public void run () {
+    public interface FrameCallback {
+        default void preEvents () {}
+        default void postEvents () {}
+        default void preRender () {}
+        default void postRender () {}
+        default void preFinish () {}
+        default void postFinish () {}
+    }
+
+    public void run (FrameCallback cb) {
 
         IWindow wnd = ObjectRegistry.instance().get(IWindow.class);
         IGraphics graphics = ObjectRegistry.instance().get(IGraphics.class);
@@ -27,9 +36,17 @@ public class Engine {
         IMouse mouse = wnd.getMouse();
 
         while (!wnd.shouldClose()) {
+            cb.preEvents();
             wnd.pollEvents();
+            cb.postEvents();
+
+            cb.preRender();
             renderFrame(graphics);
+            cb.postRender();
+
+            cb.preFinish();
             wnd.finishFrame();
+            cb.postFinish();
 
             if (keyboard.isPressed(EKey.KEY_ESCAPE)) {
                 break;

@@ -1,6 +1,7 @@
 package com.cobaltsky.engine.graphics.opengl.gl4;
 
 import com.cobaltsky.engine.core.graphics.IGraphics;
+import com.cobaltsky.engine.core.graphics.IGraphicsMesh;
 import com.cobaltsky.engine.core.math.Color4f;
 import org.lwjgl.opengl.GL;
 
@@ -51,5 +52,27 @@ public class GraphicsGL4 implements IGraphics {
         }
 
         glClear(mask);
+    }
+
+
+    @Override
+    public VertexBufferGL4 createVertexBuffer(int size) {
+        VertexBufferGL4 vb = new VertexBufferGL4();
+        vb.bind ();
+        vb.create(size);
+        return vb;
+    }
+
+    @Override
+    public IndexBufferGL4 createIndexBuffer(int size) {
+        IndexBufferGL4 vb = new IndexBufferGL4();
+        vb.bind ();
+        vb.create(size);
+        return vb;
+    }
+
+    @Override
+    public IGraphicsMesh createGraphicsMesh() {
+        return new GraphicsMeshGL4();
     }
 }

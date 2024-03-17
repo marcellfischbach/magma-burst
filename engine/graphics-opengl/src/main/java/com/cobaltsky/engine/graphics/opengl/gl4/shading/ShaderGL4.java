@@ -13,6 +13,14 @@ public class ShaderGL4 extends NamedGL4 {
         this.name = glCreateShader(type.gl);
     }
 
+    @Override
+    protected void release() {
+        if (this.name != 0) {
+            glDeleteShader(this.name);
+            this.name = 0;
+        }
+    }
+
     public void compile(String source) throws ShaderCompilationException {
         glShaderSource(this.name, source);
         glCompileShader(this.name);

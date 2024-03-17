@@ -32,38 +32,28 @@ public class Test {
             "}\n";
 
 
+    private static IShader shader;
+
     private static void setupScene (Engine engine) {
-        IShader shader = AssetManager.instance().load(IShader.class, new Locator("/shaders/test.shader"));
+        shader = AssetManager.instance().load(IShader.class, new Locator("/shaders/test.shader"));
 
-
-
-        try {
-            ShaderGL4 vert = new ShaderGL4(EShaderType.VERTEX);
-            vert.compile(vs);
-
-            ShaderGL4 frag = new ShaderGL4(EShaderType.FRAGMENT);
-            frag.compile(fs);
-
-            ProgramGL4 prog = new ProgramGL4();
-            prog.attach(vert);
-            prog.attach(frag);
-            prog.link ();
-        }
-        catch (ShaderCompilationException ce) {
-            System.out.println(ce.getShaderSource());
-            System.out.println(ce.getShaderLog());
-        }
-        catch (ShaderLinkException le) {
-            System.out.println(le.getLog());
-        }
     }
 
+
+    private static void renderFrame () {
+
+    }
 
     public static void main(String[] args) {
 
         Engine engine = new Engine();
         engine.initialize ();
         setupScene(engine);
-        engine.run();
+        engine.run(new Engine.FrameCallback() {
+            @Override
+            public void postRender() {
+                renderFrame();
+            }
+        });
     }
 }
