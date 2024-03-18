@@ -4,7 +4,7 @@
   "width": 1024,
   "height": 768,
   "fullscreen": "false",
-  "title": "Eruption",
+  "title": "Magma-Burst v0.0.1",
   "renderAPI": "opengl",
   "opengl":  {
     "versionMajor": 4,

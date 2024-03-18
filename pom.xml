@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.eruption-core</groupId>
+    <groupId>com.magma-burst</groupId>
     <artifactId>Engine</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -24,26 +24,26 @@
         <module>core</module>
         <module>graphics-opengl</module>
         <module>window-glfw</module>
-        <module>examples</module>
+        <module>test</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.eruption-core</groupId>
-                <artifactId>Eruption-Core</artifactId>
+                <groupId>com.magma-burst</groupId>
+                <artifactId>engine-core</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
-                <groupId>com.eruption-core</groupId>
-                <artifactId>Eruption-WindowGLFW</artifactId>
+                <groupId>com.magma-burst</groupId>
+                <artifactId>engine-window-glfw</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
-                <groupId>com.eruption-core</groupId>
-                <artifactId>Eruption-GraphicsOpenGL</artifactId>
+                <groupId>com.magma-burst</groupId>
+                <artifactId>engine-graphics-opengl</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 

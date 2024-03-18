@@ -2,13 +2,17 @@ package com.eruption.engine.graphics.opengl.gl4;
 
 import com.eruption.engine.core.graphics.IGraphics;
 import com.eruption.engine.core.graphics.IGraphicsMesh;
+import com.eruption.engine.core.graphics.Mesh;
+import com.eruption.engine.core.graphics.shading.IShader;
 import com.eruption.engine.core.math.Color4f;
+import com.eruption.engine.graphics.opengl.gl4.shading.ProgramGL4;
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.opengl.GL45.*;
 
 public class GraphicsGL4 implements IGraphics {
 
+    private ProgramGL4 shader;
 
     private int clearColor = 0;
     private double clearDepth = 1.0f;
@@ -17,6 +21,20 @@ public class GraphicsGL4 implements IGraphics {
 
     public void initialize () {
         GL.createCapabilities();
+
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_CULL_FACE);
+        glFrontFace(GL_CW);
+        glCullFace(GL_BACK);
+
+        glColorMask(true, true, true, true);
+        glDepthMask(true);
+    }
+
+    @Override
+    public void setViewport(int x, int y, int width, int height) {
+        glViewport(x, y, width, height);
+
     }
 
     @Override
@@ -54,6 +72,31 @@ public class GraphicsGL4 implements IGraphics {
         glClear(mask);
     }
 
+    @Override
+    public void setShader(IShader shader) {
+        if (this.shader == shader) {
+            return;
+        }
+
+        this.shader = (ProgramGL4)shader;
+        glUseProgram(this.shader != null ? this.shader.name : 0);
+        ErrorGL4.check();
+    }
+
+
+
+    @Override
+    public void render(Mesh mesh) {
+        ErrorGL4.check();
+        bindAttributes();
+        ErrorGL4.check();
+        mesh.render(this);
+        ErrorGL4.check();
+    }
+
+    private void bindAttributes () {
+
+    }
 
     @Override
     public VertexBufferGL4 createVertexBuffer(int size) {

@@ -5,31 +5,31 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.eruption-core</groupId>
-        <artifactId>Eruption-Examples</artifactId>
+        <groupId>com.magma-burst</groupId>
+        <artifactId>Engine</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>Example-Test</artifactId>
+    <artifactId>engine-test</artifactId>
     <packaging>jar</packaging>
 
 
     <dependencies>
 
         <dependency>
-            <groupId>com.eruption-core</groupId>
-            <artifactId>Eruption-Core</artifactId>
+            <groupId>com.magma-burst</groupId>
+            <artifactId>engine-core</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.eruption-core</groupId>
-            <artifactId>Eruption-WindowGLFW</artifactId>
+            <groupId>com.magma-burst</groupId>
+            <artifactId>engine-window-glfw</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.eruption-core</groupId>
-            <artifactId>Eruption-GraphicsOpenGL</artifactId>
+            <groupId>com.magma-burst</groupId>
+            <artifactId>engine-graphics-opengl</artifactId>
         </dependency>
 
     </dependencies>

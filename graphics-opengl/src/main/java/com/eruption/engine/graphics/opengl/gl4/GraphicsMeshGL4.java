@@ -31,8 +31,12 @@ public class GraphicsMeshGL4 implements IGraphicsMesh {
 
     @Override
     public void render(IGraphics graphics) {
+        ErrorGL4.check();
         glBindVertexArray(vao);
+        ErrorGL4.check();
+
         glDrawElements(this.primitive, this.indexCount, this.indexType, 0);
+        ErrorGL4.check();
     }
 
     @Override
@@ -48,14 +52,20 @@ public class GraphicsMeshGL4 implements IGraphicsMesh {
         if (this.vao == 0) {
             this.vao = glGenVertexArrays();
         }
+        ErrorGL4.check();
         glBindVertexArray(this.vao);
+        ErrorGL4.check();
 
         CreateVBResult vbResult = createVB((GraphicsGL4) graphics, mesh);
+        ErrorGL4.check();
         if (vbResult == null) {
             return;
         }
+        ErrorGL4.check();
         CreateIBResult ibResult = createIB((GraphicsGL4) graphics, mesh, vbResult.meshData.getNumberOfVertices());
-        createStreamAssignments (vbResult.meshData);
+        ErrorGL4.check();
+        createStreamAssignments(vbResult.meshData, vbResult.vb, ibResult.ib);
+        ErrorGL4.check();
 
         this.primitive = switch (mesh.getPrimitive()) {
             case POINTS -> GL_POINTS;
@@ -65,6 +75,9 @@ public class GraphicsMeshGL4 implements IGraphicsMesh {
         this.indexCount = ibResult.count;
         this.indexType = ibResult.type;
 
+        ErrorGL4.check();
+        glBindVertexArray(0);
+        ErrorGL4.check();
     }
 
     private record CreateVBResult(VertexBufferGL4 vb, MeshData meshData) {
@@ -85,7 +98,7 @@ public class GraphicsMeshGL4 implements IGraphicsMesh {
             List<Vector4f> uv14
     ) {
 
-        public int getNumberOfVertices () {
+        public int getNumberOfVertices() {
             return positions.size();
         }
 
@@ -114,7 +127,7 @@ public class GraphicsMeshGL4 implements IGraphicsMesh {
             return true;
         }
 
-        private int getVertexSizeInBytes () {
+        private int getVertexSizeInBytes() {
             //
             // calculate the size of a single vertex in bytes
             int vertexSize = 4 * Float.BYTES; // the position size
@@ -151,8 +164,8 @@ public class GraphicsMeshGL4 implements IGraphicsMesh {
 
             return vertexSize;
         }
-        
-        private void put (ByteBuffer buffer) {
+
+        private void put(ByteBuffer buffer) {
             for (int i = 0; i < positions.size(); i++) {
                 put(buffer, positions.get(i));
                 if (!normals.isEmpty()) {
@@ -188,25 +201,25 @@ public class GraphicsMeshGL4 implements IGraphicsMesh {
             }
         }
 
-        private static void put (ByteBuffer buffer, Vector2f v) {
+        private static void put(ByteBuffer buffer, Vector2f v) {
             buffer.putFloat(v.x);
             buffer.putFloat(v.y);
         }
 
-        private static void put (ByteBuffer buffer, Vector3f v) {
+        private static void put(ByteBuffer buffer, Vector3f v) {
             buffer.putFloat(v.x);
             buffer.putFloat(v.y);
             buffer.putFloat(v.z);
         }
 
-        private static void put (ByteBuffer buffer, Vector4f v) {
+        private static void put(ByteBuffer buffer, Vector4f v) {
             buffer.putFloat(v.x);
             buffer.putFloat(v.y);
             buffer.putFloat(v.z);
             buffer.putFloat(v.w);
         }
 
-        private static void put (ByteBuffer buffer, Color4f c) {
+        private static void put(ByteBuffer buffer, Color4f c) {
             buffer.putFloat(c.r);
             buffer.putFloat(c.g);
             buffer.putFloat(c.b);
@@ -244,11 +257,9 @@ public class GraphicsMeshGL4 implements IGraphicsMesh {
 
         VertexBufferGL4 vb = graphics.createVertexBuffer(vertexSizeInBytes * data.positions.size());
         vb.copy(buffer);
-
-        return new CreateVBResult(vb,data);
+        vb.unbind();
+        return new CreateVBResult(vb, data);
     }
-
-
 
 
     private record CreateIBResult(IndexBufferGL4 ib, int count, int type) {
@@ -266,8 +277,10 @@ public class GraphicsMeshGL4 implements IGraphicsMesh {
             buffer.rewind();
             IndexBufferGL4 ib = graphics.createIndexBuffer(indices.size() * 4);
             ib.copy(buffer);
+            ib.unbind();
             return new CreateIBResult(ib, indices.size(), GL_UNSIGNED_INT);
-        } else {
+        }
+        else {
 
             // create 16bit indices
             List<Integer> indices = mesh.getIndices();
@@ -279,70 +292,79 @@ public class GraphicsMeshGL4 implements IGraphicsMesh {
             buffer.rewind();
             IndexBufferGL4 ib = graphics.createIndexBuffer(indices.size() * 2);
             ib.copy(buffer);
+            ib.unbind();
             return new CreateIBResult(ib, indices.size(), GL_UNSIGNED_SHORT);
 
         }
     }
 
-    private void createStreamAssignments (MeshData meshData) {
+    private void createStreamAssignments(MeshData meshData, VertexBufferGL4 vb, IndexBufferGL4 ib) {
+        glBindVertexArray(this.vao);
+        vb.bind();
+        ib.bind();
+
+        ErrorGL4.check();
         int stride = meshData.getVertexSizeInBytes();
         int ptr = 0;
-        glVertexAttribPointer(EVertexStream.POSITION.ordinal(),4, GL_FLAT, false, stride, ptr);
+        ErrorGL4.check();
+        glVertexAttribPointer(EVertexStream.POSITION.ordinal(), 4, GL_FLOAT, false, stride, ptr);
+        ErrorGL4.check();
         glEnableVertexAttribArray(EVertexStream.POSITION.ordinal());
-        ptr += 4 * Float.SIZE;
+        ErrorGL4.check();
+        ptr += 4 * Float.BYTES;
 
         if (!meshData.normals.isEmpty()) {
-            glVertexAttribPointer(EVertexStream.NORMAL.ordinal(), 3, GL_FLAT, false, stride, ptr);
+            glVertexAttribPointer(EVertexStream.NORMAL.ordinal(), 3, GL_FLOAT, false, stride, ptr);
             glEnableVertexAttribArray(EVertexStream.NORMAL.ordinal());
-            ptr += 3 * Float.SIZE;
+            ptr += 3 * Float.BYTES;
         }
 
         if (!meshData.tangents.isEmpty()) {
-            glVertexAttribPointer(EVertexStream.TANGENT.ordinal(), 3, GL_FLAT, false, stride, ptr);
+            glVertexAttribPointer(EVertexStream.TANGENT.ordinal(), 3, GL_FLOAT, false, stride, ptr);
             glEnableVertexAttribArray(EVertexStream.TANGENT.ordinal());
-            ptr += 3 * Float.SIZE;
+            ptr += 3 * Float.BYTES;
         }
         if (!meshData.coTangents.isEmpty()) {
-            glVertexAttribPointer(EVertexStream.CO_TANGENT.ordinal(), 3, GL_FLAT, false, stride, ptr);
+            glVertexAttribPointer(EVertexStream.CO_TANGENT.ordinal(), 3, GL_FLOAT, false, stride, ptr);
             glEnableVertexAttribArray(EVertexStream.CO_TANGENT.ordinal());
-            ptr += 3 * Float.SIZE;
+            ptr += 3 * Float.BYTES;
         }
 
         if (!meshData.colors.isEmpty()) {
-            glVertexAttribPointer(EVertexStream.COLOR.ordinal(), 4, GL_FLAT, false, stride, ptr);
+            glVertexAttribPointer(EVertexStream.COLOR.ordinal(), 4, GL_FLOAT, false, stride, ptr);
             glEnableVertexAttribArray(EVertexStream.COLOR.ordinal());
-            ptr += 4 * Float.SIZE;
+            ptr += 4 * Float.BYTES;
         }
 
         if (!meshData.uv0.isEmpty()) {
-            glVertexAttribPointer(EVertexStream.UV0.ordinal(), 2, GL_FLAT, false, stride, ptr);
+            glVertexAttribPointer(EVertexStream.UV0.ordinal(), 2, GL_FLOAT, false, stride, ptr);
             glEnableVertexAttribArray(EVertexStream.UV0.ordinal());
-            ptr += 2 * Float.SIZE;
+            ptr += 2 * Float.BYTES;
         }
         if (!meshData.uv03.isEmpty()) {
-            glVertexAttribPointer(EVertexStream.UV0.ordinal(), 3, GL_FLAT, false, stride, ptr);
+            glVertexAttribPointer(EVertexStream.UV0.ordinal(), 3, GL_FLOAT, false, stride, ptr);
             glEnableVertexAttribArray(EVertexStream.UV0.ordinal());
-            ptr += 3 * Float.SIZE;
+            ptr += 3 * Float.BYTES;
         }
         if (!meshData.uv04.isEmpty()) {
-            glVertexAttribPointer(EVertexStream.UV0.ordinal(), 4, GL_FLAT, false, stride, ptr);
+            glVertexAttribPointer(EVertexStream.UV0.ordinal(), 4, GL_FLOAT, false, stride, ptr);
             glEnableVertexAttribArray(EVertexStream.UV0.ordinal());
-            ptr += 4 * Float.SIZE;
+            ptr += 4 * Float.BYTES;
         }
         if (!meshData.uv1.isEmpty()) {
-            glVertexAttribPointer(EVertexStream.UV1.ordinal(), 2, GL_FLAT, false, stride, ptr);
+            glVertexAttribPointer(EVertexStream.UV1.ordinal(), 2, GL_FLOAT, false, stride, ptr);
             glEnableVertexAttribArray(EVertexStream.UV1.ordinal());
-            ptr += 2 * Float.SIZE;
+            ptr += 2 * Float.BYTES;
         }
         if (!meshData.uv13.isEmpty()) {
-            glVertexAttribPointer(EVertexStream.UV1.ordinal(), 3, GL_FLAT, false, stride, ptr);
+            glVertexAttribPointer(EVertexStream.UV1.ordinal(), 3, GL_FLOAT, false, stride, ptr);
             glEnableVertexAttribArray(EVertexStream.UV1.ordinal());
-            ptr += 3 * Float.SIZE;
+            ptr += 3 * Float.BYTES;
         }
         if (!meshData.uv14.isEmpty()) {
-            glVertexAttribPointer(EVertexStream.UV1.ordinal(), 4, GL_FLAT, false, stride, ptr);
+            glVertexAttribPointer(EVertexStream.UV1.ordinal(), 4, GL_FLOAT, false, stride, ptr);
             glEnableVertexAttribArray(EVertexStream.UV1.ordinal());
-            ptr += 4 * Float.SIZE;
+            ptr += 4 * Float.BYTES;
         }
     }
 }

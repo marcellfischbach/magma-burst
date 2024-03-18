@@ -13,39 +13,39 @@ public class IndexBufferGL4 extends NamedGL4 implements IIndexBuffer {
     }
 
     public void create (int size) {
-        glBufferData(GL_ARRAY_BUFFER, size, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, GL_STATIC_DRAW);
     }
 
     @Override
     public void bind() {
-        glBindBuffer(GL_ARRAY_BUFFER, this.name);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this.name);
     }
 
     @Override
     public void unbind() {
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
 
     @Override
     public void copy(ByteBuffer buffer) {
-        glBufferSubData(GL_ARRAY_BUFFER, 0, buffer);
+        glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, buffer);
     }
 
     @Override
     public void copy(ByteBuffer buffer, long offset) {
-        glBufferSubData(GL_ARRAY_BUFFER, offset, buffer);
+        glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, buffer);
     }
 
     @Override
     public ByteBuffer map() {
         bind ();
-        return glMapBuffer(GL_ARRAY_BUFFER, GL_READ_ONLY);
+        return glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_READ_ONLY);
     }
 
     @Override
     public void unmap() {
-        glUnmapBuffer(GL_ARRAY_BUFFER);
+        glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
     }
 
     @Override

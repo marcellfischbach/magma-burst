@@ -22,8 +22,8 @@ public class Engine {
     public interface FrameCallback {
         default void preEvents () {}
         default void postEvents () {}
-        default void preRender () {}
-        default void postRender () {}
+        default void preRender (IGraphics graphics) {}
+        default void postRender (IGraphics graphics) {}
         default void preFinish () {}
         default void postFinish () {}
     }
@@ -40,9 +40,9 @@ public class Engine {
             wnd.pollEvents();
             cb.postEvents();
 
-            cb.preRender();
-            renderFrame(graphics);
-            cb.postRender();
+            cb.preRender(graphics);
+            renderFrame(wnd, graphics);
+            cb.postRender(graphics);
 
             cb.preFinish();
             wnd.finishFrame();
@@ -55,7 +55,8 @@ public class Engine {
         }
     }
 
-    private void renderFrame(IGraphics graphics) {
+    private void renderFrame(IWindow window, IGraphics graphics) {
+        graphics.setViewport(0, 0, window.getWidth(), window.getHeight());
         graphics.clear(true, new Color4f(0.0f, 0.0f, 0.5f, 1.0f), true, 1.0f, true, 0);
     }
 }
