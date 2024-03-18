@@ -2,13 +2,13 @@
 
 layout(location = 0) in vec4 cs_Vertices;
 
-uniform mat4 cs_ModelMatrix;
-uniform mat4 cs_ViewMatrix;
-uniform mat4 cs_ProjectionMatrix;
+uniform mat4 ec_ModelMatrix;
+uniform mat4 ec_ViewMatrix;
+uniform mat4 ec_ProjectionMatrix;
 
 
 
 void main ()
 {
-    gl_Position = cs_ProjectionMatrix * cs_ViewMatrix * cs_ModelMatrix * cs_Vertices;
+    gl_Position = ec_ProjectionMatrix * ec_ViewMatrix * ec_ModelMatrix * ec_Vertices;
 }

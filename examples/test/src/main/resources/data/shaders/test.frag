@@ -1,7 +1,7 @@
 #version 330
 layout (location = 0) out vec4 cs_FragColor;
 
-uniform vec4 cs_Diffuse;
+uniform vec4 ec_Diffuse;
 
 
 void main ()
