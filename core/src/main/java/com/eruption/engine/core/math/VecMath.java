@@ -168,6 +168,63 @@ public abstract class VecMath {
         return r;
     }
 
+    public static Matrix4 invert(Matrix4 m, Matrix4 r) {
+        float v0 = m.m20 * m.m31 - m.m21 * m.m30;
+        float v1 = m.m20 * m.m32 - m.m22 * m.m30;
+        float v2 = m.m20 * m.m33 - m.m23 * m.m30;
+        float v3 = m.m21 * m.m32 - m.m22 * m.m31;
+        float v4 = m.m21 * m.m33 - m.m23 * m.m31;
+        float v5 = m.m22 * m.m33 - m.m23 * m.m32;
+
+        float t00 = +(v5 * m.m11 - v4 * m.m12 + v3 * m.m13);
+        float t10 = -(v5 * m.m10 - v2 * m.m12 + v1 * m.m13);
+        float t20 = +(v4 * m.m10 - v2 * m.m11 + v0 * m.m13);
+        float t30 = -(v3 * m.m10 - v1 * m.m11 + v0 * m.m12);
+
+        float invDet = 1.0f / (t00 * m.m00 + t10 * m.m01 + t20 * m.m02 + t30 * m.m03);
+
+        float lm00 = t00 * invDet;
+        float lm10 = t10 * invDet;
+        float lm20 = t20 * invDet;
+        float lm30 = t30 * invDet;
+
+        float lm01 = -(v5 * m.m01 - v4 * m.m02 + v3 * m.m03) * invDet;
+        float lm11 = +(v5 * m.m00 - v2 * m.m02 + v1 * m.m03) * invDet;
+        float lm21 = -(v4 * m.m00 - v2 * m.m01 + v0 * m.m03) * invDet;
+        float lm31 = +(v3 * m.m00 - v1 * m.m01 + v0 * m.m02) * invDet;
+
+        v0 = m.m10 * m.m31 - m.m11 * m.m30;
+        v1 = m.m10 * m.m32 - m.m12 * m.m30;
+        v2 = m.m10 * m.m33 - m.m13 * m.m30;
+        v3 = m.m11 * m.m32 - m.m12 * m.m31;
+        v4 = m.m11 * m.m33 - m.m13 * m.m31;
+        v5 = m.m12 * m.m33 - m.m13 * m.m32;
+
+        float lm02 = +(v5 * m.m01 - v4 * m.m02 + v3 * m.m03) * invDet;
+        float lm12 = -(v5 * m.m00 - v2 * m.m02 + v1 * m.m03) * invDet;
+        float lm22 = +(v4 * m.m00 - v2 * m.m01 + v0 * m.m03) * invDet;
+        float lm32 = -(v3 * m.m00 - v1 * m.m01 + v0 * m.m02) * invDet;
+
+        v0 = m.m21 * m.m10 - m.m20 * m.m11;
+        v1 = m.m22 * m.m10 - m.m20 * m.m12;
+        v2 = m.m23 * m.m10 - m.m20 * m.m13;
+        v3 = m.m22 * m.m11 - m.m21 * m.m12;
+        v4 = m.m23 * m.m11 - m.m21 * m.m13;
+        v5 = m.m23 * m.m12 - m.m22 * m.m13;
+
+        float lm03 = -(v5 * m.m01 - v4 * m.m02 + v3 * m.m03) * invDet;
+        float lm13 = +(v5 * m.m00 - v2 * m.m02 + v1 * m.m03) * invDet;
+        float lm23 = -(v4 * m.m00 - v2 * m.m01 + v0 * m.m03) * invDet;
+        float lm33 = +(v3 * m.m00 - v1 * m.m01 + v0 * m.m02) * invDet;
+
+        r.set(
+                lm00, lm01, lm02, lm03,
+                lm10, lm11, lm12, lm13,
+                lm20, lm21, lm22, lm23,
+                lm30, lm31, lm32, lm33
+        );
+        return r;
+    }
 
     private VecMath() {
     }

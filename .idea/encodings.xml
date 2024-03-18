@@ -3,10 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/engine/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/engine/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/examples/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/examples/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/graphics-opengl/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/graphics-opengl/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
@@ -14,7 +10,6 @@
     <file url="file://$PROJECT_DIR$/test/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/test/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/window-glfw/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/window-glfw/src/main/kotlin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/window-glfw/src/main/resources" charset="UTF-8" />
   </component>
 </project>

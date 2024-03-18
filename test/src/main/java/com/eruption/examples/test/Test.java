@@ -34,10 +34,14 @@ public class Test {
         mesh = new Mesh();
         mesh.setPrimitive(EPrimitive.TRIANGLES);
         mesh.setPositions(List.of(
-                new Vector4f(-0.5f, -0.5f, 0.0f, 1.0f),
-                new Vector4f(-0.5f, 0.5f, 0.0f, 1.0f),
-                new Vector4f(0.5f, -0.5f, 0.0f, 1.0f),
-                new Vector4f(0.5f, 0.5f, 0.0f, 1.0f)
+                new Vector4f(-0.5f, -0.5f, -0.5f, 1.0f),
+                new Vector4f(-0.5f, 0.5f, -0.5f, 1.0f),
+                new Vector4f(0.5f, -0.5f, -0.5f, 1.0f),
+                new Vector4f(0.5f, 0.5f, -0.5f, 1.0f),
+                new Vector4f(-0.5f, -0.5f, 0.5f, 1.0f),
+                new Vector4f(-0.5f, 0.5f, 0.5f, 1.0f),
+                new Vector4f(0.5f, -0.5f, 0.5f, 1.0f),
+                new Vector4f(0.5f, 0.5f, 0.5f, 1.0f)
         ));
         mesh.setIndices(List.of(0, 1, 3, 0, 3, 2));
 
@@ -48,7 +52,7 @@ public class Test {
 
 
         material = new Material(materialDef);
-        material.set(colorIdx, new Color4f(0.5f, 0.0f, 0.0f, 1.0f));
+//        material.set(colorIdx, new Color4f(0.5f, 0.0f, 0.0f, 1.0f));
     }
 
 
