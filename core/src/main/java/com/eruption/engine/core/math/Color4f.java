@@ -31,6 +31,20 @@ public class Color4f {
         this.a = a;
     }
 
+    public void set(float r, float g, float b, float a) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
+    }
+
+    public void set(Color4f v) {
+        this.r = v.r;
+        this.g = v.g;
+        this.b = v.b;
+        this.a = v.a;
+    }
+
     public int argb () {
         return ((int)(this.a * 255) & 0xff << 24)
                 | ((int)(this.r * 255) & 0xff << 16)

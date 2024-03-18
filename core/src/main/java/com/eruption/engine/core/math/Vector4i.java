@@ -34,4 +34,18 @@ public class Vector4i {
         this.z = other.z;
         this.w = other.w;
     }
+
+    public void set(int x, int y, int z, int w) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.w = w;
+    }
+
+    public void set(Vector4i v) {
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
+        this.w = v.w;
+    }
 }

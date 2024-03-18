@@ -34,4 +34,21 @@ public class Vector4f {
         this.z = other.z;
         this.w = other.w;
     }
+
+
+
+    public void set(float x, float y, float z, float w) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.w = w;
+    }
+
+    public void set(Vector4f v) {
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
+        this.w = v.w;
+    }
+
 }

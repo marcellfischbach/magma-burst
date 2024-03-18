@@ -32,6 +32,20 @@ public class Matrix3 {
         this.m22 = m22;
     }
 
+    public void set(Matrix3 m) {
+        this.m00 = m.m00;
+        this.m01 = m.m01;
+        this.m02 = m.m02;
+
+        this.m10 = m.m10;
+        this.m11 = m.m11;
+        this.m12 = m.m12;
+
+        this.m20 = m.m20;
+        this.m21 = m.m21;
+        this.m22 = m.m22;
+    }
+
     public void toBuffer (float[] b) {
         b[0] = m00;
         b[1] = m01;

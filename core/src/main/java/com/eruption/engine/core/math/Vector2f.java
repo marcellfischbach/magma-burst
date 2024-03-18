@@ -19,4 +19,14 @@ public class Vector2f {
         this.x = other.x;
         this.y = other.y;
     }
+
+    public void set(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void set(Vector2f v) {
+        this.x = v.x;
+        this.y = v.y;
+    }
 }

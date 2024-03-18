@@ -87,7 +87,7 @@ public class ProgramGL4 extends NamedGL4 implements IShader {
         }
 
         String locName = Character.toUpperCase(locationName.charAt(0)) + locationName.substring(1);
-        return "ec_" + locName;
+        return "mb_" + locName;
     }
 
     @Override

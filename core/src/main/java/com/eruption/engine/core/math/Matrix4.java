@@ -48,6 +48,28 @@ public class Matrix4 {
         this.m33 = m33;
     }
 
+    public void set(Matrix4 m) {
+        this.m00 = m.m00;
+        this.m01 = m.m01;
+        this.m02 = m.m02;
+        this.m03 = m.m03;
+
+        this.m10 = m.m10;
+        this.m11 = m.m11;
+        this.m12 = m.m12;
+        this.m13 = m.m13;
+
+        this.m20 = m.m20;
+        this.m21 = m.m21;
+        this.m22 = m.m22;
+        this.m23 = m.m23;
+
+        this.m30 = m.m30;
+        this.m31 = m.m31;
+        this.m32 = m.m32;
+        this.m33 = m.m33;
+    }
+    
     public void toBuffer (float[] b) {
         b[0] = m00;
         b[1] = m01;

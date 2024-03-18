@@ -19,4 +19,15 @@ public class Vector2i {
         this.x = other.x;
         this.y = other.y;
     }
+
+
+    public void set(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void set(Vector2i v) {
+        this.x = v.x;
+        this.y = v.y;
+    }
 }

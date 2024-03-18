@@ -24,6 +24,21 @@ public class Vector3i {
         this.z = other.z;
     }
 
+
+
+    public void set(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    public void set(Vector3i v) {
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
+    }
+
+
     @Override
     public String toString() {
         return String.format("%.2f %.2f %.2f", this.x, this.y, this.z);
