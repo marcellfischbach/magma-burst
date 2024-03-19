@@ -62,6 +62,20 @@ public abstract class VecMath {
         return r;
     }
 
+    public static float dot (Vector3f v0, Vector3f v1) {
+        return v0.x*v1.x + v0.y*v1.y + v0.z*v1.z;
+    }
+
+    public static Vector3f cross(Vector3f v0, Vector3f v1, Vector3f r) {
+        float x = v0.y * v1.z - v0.z * v1.y;
+        float y = v0.z * v1.x - v0.x * v1.z;
+        float z = v0.x * v1.y - v0.y * v1.x;
+        r.x = x;
+        r.y = y;
+        r.z = z;
+        return r;
+    }
+
     public static Vector4f mul(Vector4f v, float f, Vector4f r) {
         r.x = v.x * f;
         r.y = v.y * f;

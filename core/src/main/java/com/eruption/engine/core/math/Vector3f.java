@@ -37,6 +37,14 @@ public class Vector3f {
         this.z = v.z;
     }
 
+    public Vector3f normalize () {
+        float l = (float)Math.sqrt(x*x + y*y + z*z);
+        this.x /= l;
+        this.y /= l;
+        this.z /= l;
+        return this;
+    }
+
     @Override
     public String toString() {
         return String.format("%.2f %.2f %.2f", this.x, this.y, this.z);
